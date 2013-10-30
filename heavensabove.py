@@ -1,7 +1,7 @@
 import requests
 from lxml.html.soupparser import fromstring
 
-class HAUtil():
+class HAUtil:
     """ Represents and provides utilities for a connection to the heavens-
     above web service."""
 	def __init__(self, lat, lon, alt, tz):
@@ -21,7 +21,7 @@ class HAUtil():
             path, self.lat, self.lon, self.alt, self.tz))
         return fromstring(r.text)
 
-class Satellite():
+class Satellite:
     """ Represents a satellite that heavens-above supports calculating passes
     for. Contains utilities and the pass objects."""
     def __init__(self, name, number):
@@ -47,7 +47,7 @@ class Satellite():
         output += "---------------------------------------------------------------"
         return output
 
-class Satellite_Pass():
+class Satellite_Pass:
     """ Represents an instance of a satellite passing over, with times and
     locations. """
     def __init__(self, etree):
@@ -68,7 +68,7 @@ class Satellite_Pass():
         return "{0: <7}  {1: <4}  {2}  {3}  {4}\n".format(self.date, self.mag,
             self.start, self.peak, self.end)
 
-class Satellite_Pass_Timeset():
+class Satellite_Pass_Timeset:
     """ Represents a start, peak, or end time and position. """
     def __init__(self, time, alt, az):
         self.time = time
