@@ -24,11 +24,12 @@ class HAUtil:
 """Represents a satellite that heavens-above supports calculating passes
 for. Contains utilities and the pass objects."""
 class Satellite:
-    def __init__(self, name, number):
+    def __init__(self, name, number, utils):
         """ Creates the object and sets its satellite name/number"""
         self.name = name
         self.number = number
         self.passes = []
+        self.retrieve(utils)
 
     def retrieve(utils):
         """ Get this satellite's info from the web service """
@@ -38,9 +39,9 @@ class Satellite:
             self.passes.append(Satellite_Pass(row))
 
     def __str__(self):
-        output = """{0} ({1})\n
-                       Start ---------  Peak ----------  End ----------\n
-        Date     Mag   Time     Al Az   Time     Al Az   Time    Al Az \n""".format(
+        output = """{0} ({1})
+               Start ---------  Peak ----------  End ----------
+Date     Mag   Time     Al Az   Time     Al Az   Time    Al Az \n""".format(
             self.name, self.number)
         for time in self.passes:
             output += str(time)

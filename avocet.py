@@ -7,7 +7,7 @@ def main():
 
     message = "Interesting astronomical events in the next ten days:\n\n"
 
-    iss = Satellite("International Space Station", 25544)
+    iss = Satellite("International Space Station", 25544, utils)
 
     message += str(iss)
 
@@ -15,7 +15,7 @@ def main():
     email["To"]       = "atl@jbcrawford.us"
     email["Subject"]  = "Upcoming astronomical events"
     p = Popen(["/usr/sbin/sendmail", "-t"], stdin=PIPE)
-    p.communicate(msg.as_string())
+    p.communicate(email.as_string())
 
 if __name__ == "__main__":
     main()
