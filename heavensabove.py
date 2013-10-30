@@ -40,12 +40,11 @@ class Satellite:
 
     def __str__(self):
         output = """{0} ({1})
-               Start ---------  Peak ----------  End ----------
-Date     Mag   Time     Al Az   Time     Al Az   Time    Al Az \n""".format(
+               Start            Peak             End
+Date     Mag   Time     Al Az   Time     Al Az   Time     Al Az \n""".format(
             self.name, self.number)
         for time in self.passes:
             output += str(time)
-        output += "---------------------------------------------------------------"
         return output
 
 """ Represents an instance of a satellite passing over, with times and
@@ -53,7 +52,7 @@ locations. """
 class Satellite_Pass:
     def __init__(self, etree):
         """ Parses from subset of the HTML tree """
-        cells = etree.findall('tr')
+        cells = etree.findall('td')
 
         self.date = cells[0].text_content()
         self.mag  = cells[1].text_content()
@@ -79,3 +78,36 @@ class Satellite_Pass_Timeset:
     def __str__(self):
         """ Uses a total of 15 characters. """
         return "{0: <8} {1: <2} {2: <3}".format(self.time, self.alt, self.az)
+
+class Iridium:
+    def __init__(self, utils):
+        self.flares = []
+        self.retrieve(utils)
+
+    def retrieve(self, utils):
+        html = utils.request_page("IridiumFlares.aspx?")
+        table_rows = html.xpath("//tr[contains(string(@class),\"clickableRow\")]")
+        for row in table_rows:
+            self.flares.append(Iridium_Flare(row))
+
+    def __str__(self):
+        output  = "Time             Mag   Al  Az         Satellite   Dst. Cntr.   CMag SAl"
+        for flare in self.flares:
+            output += str(flare)
+        return output
+
+class Iridium_Flare:
+    def __init__(self, etree):
+        cells = etree.findall('td')
+
+        self.time = cells[0].text_content()
+        self.mag = cells[1].text_content()
+        self.alt = cells[2].text_content().replace(u'\xb0', '')
+        self.az = cells[3].text_content().replace(u'\xb0', '')
+        self.sat = cells[4].text_content()
+        self.center_dist = cells[5].text_content()
+        self.center_mag = cells[6].text_content()
+        self.sun_alt = cells[7].text_content().replace(u'\xb0', '')
+
+    def __str__(self):
+        return "{0: <15}  {1: <4}  {2: <2} {3: <9}  {4: <10}  {5: <10} {6: <4} {7: <3}"
