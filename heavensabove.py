@@ -17,7 +17,7 @@ class HAUtil:
         self.tz = tz
 
     def request_page(self, path):
-        r = requests.get("http://heavens-above.com/{}&lat={}&lon={}&alt={}&tz={}".format(
+        r = requests.get("http://heavens-above.com/{}&lat={}&lng={}&alt={}&tz={}".format(
             path, self.lat, self.lon, self.alt, self.tz))
         return fromstring(r.text)
 
@@ -31,7 +31,7 @@ class Satellite:
         self.passes = []
         self.retrieve(utils)
 
-    def retrieve(utils):
+    def retrieve(self, utils):
         """ Get this satellite's info from the web service """
         html = utils.request_page("PassSummary.aspx?satid={}".format(self.number))
         table_rows = html.xpath("//tr[contains(string(@class),\"clickableRow\")]")
@@ -73,7 +73,7 @@ class Satellite_Pass:
 class Satellite_Pass_Timeset:
     def __init__(self, time, alt, az):
         self.time = time
-        self.alt = alt
+        self.alt = alt.replace(u'\xb0', '')
         self.az = az
 
     def __str__(self):
