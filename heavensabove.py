@@ -42,7 +42,7 @@ class Satellite:
                        Start ---------  Peak ----------  End ----------\n
         Date     Mag   Time     Al Az   Time     Al Az   Time    Al Az \n""".format(
             self.name, self.number)
-        for time in passes:
+        for time in self.passes:
             output += str(time)
         output += "---------------------------------------------------------------"
         return output
