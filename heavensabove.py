@@ -4,16 +4,16 @@ from lxml.html.soupparser import fromstring
 """Represents and provides utilities for a connection to the heavens-
 above web service."""
 class HAUtil:
-	def __init__(self, lat, lon, alt, tz):
-		"""
+    def __init__(self, lat, lon, alt, tz):
+        """
         Sets important configuration data for connection.
         lat, lon    Observer position, latitude and longitude, decimal
         alt         Observer altitude, meters
         tz          Observer time zone, three-letter code
         """
         self.lat = lat
-		self.lon = lon
-		self.alt = alt
+        self.lon = lon
+        self.alt = alt
         self.tz = tz
 
     def request_page(self, path):
