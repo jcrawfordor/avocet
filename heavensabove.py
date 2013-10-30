@@ -1,9 +1,9 @@
 import requests
 from lxml.html.soupparser import fromstring
 
+"""Represents and provides utilities for a connection to the heavens-
+above web service."""
 class HAUtil:
-    """ Represents and provides utilities for a connection to the heavens-
-    above web service."""
 	def __init__(self, lat, lon, alt, tz):
 		"""
         Sets important configuration data for connection.
@@ -21,9 +21,9 @@ class HAUtil:
             path, self.lat, self.lon, self.alt, self.tz))
         return fromstring(r.text)
 
+"""Represents a satellite that heavens-above supports calculating passes
+for. Contains utilities and the pass objects."""
 class Satellite:
-    """ Represents a satellite that heavens-above supports calculating passes
-    for. Contains utilities and the pass objects."""
     def __init__(self, name, number):
         """ Creates the object and sets its satellite name/number"""
         self.name = name
@@ -47,9 +47,9 @@ class Satellite:
         output += "---------------------------------------------------------------"
         return output
 
+""" Represents an instance of a satellite passing over, with times and
+locations. """
 class Satellite_Pass:
-    """ Represents an instance of a satellite passing over, with times and
-    locations. """
     def __init__(self, etree):
         """ Parses from subset of the HTML tree """
         cells = etree.findall('tr')
@@ -68,8 +68,8 @@ class Satellite_Pass:
         return "{0: <7}  {1: <4}  {2}  {3}  {4}\n".format(self.date, self.mag,
             self.start, self.peak, self.end)
 
+"""Represents a start, peak, or end time and position."""
 class Satellite_Pass_Timeset:
-    """ Represents a start, peak, or end time and position. """
     def __init__(self, time, alt, az):
         self.time = time
         self.alt = alt
