@@ -59,9 +59,9 @@ class Satellite_Pass:
 
         self.start = Satellite_Pass_Timeset(cells[2].text_content(),
             cells[3].text_content(), cells[4].text_content())
-        self.start = Satellite_Pass_Timeset(cells[5].text_content(),
+        self.peak = Satellite_Pass_Timeset(cells[5].text_content(),
             cells[6].text_content(), cells[7].text_content())
-        self.start = Satellite_Pass_Timeset(cells[8].text_content(),
+        self.end = Satellite_Pass_Timeset(cells[8].text_content(),
             cells[9].text_content(), cells[10].text_content())
 
     def __str__(self):
@@ -110,4 +110,6 @@ class Iridium_Flare:
         self.sun_alt = cells[7].text_content().replace(u'\xb0', '')
 
     def __str__(self):
-        return "{0: <15}  {1: <4}  {2: <2} {3: <9}  {4: <10}  {5: <10} {6: <4} {7: <3}"
+        return "{0: <15}  {1: <4}  {2: <2} {3: <9}  {4: <10}  {5: <10} {6: <4} {7: <3}".format(
+            self.time, self.mag, self.alt, self.az, self.sat, self.center_dist,
+            self.center_mag, self.sun_alt)
