@@ -91,7 +91,7 @@ class Iridium:
             self.flares.append(Iridium_Flare(row))
 
     def __str__(self):
-        output  = "Time             Mag   Al  Az         Satellite   Dst. Cntr.   CMag SAl"
+        output  = "Time             Mag   Al  Az         Satellite   Dst. Cntr.   CMag SAl\n"
         for flare in self.flares:
             output += str(flare)
         return output
@@ -110,6 +110,6 @@ class Iridium_Flare:
         self.sun_alt = cells[7].text_content().replace(u'\xb0', '')
 
     def __str__(self):
-        return "{0: <15}  {1: <4}  {2: <2} {3: <9}  {4: <10}  {5: <10} {6: <4} {7: <3}".format(
+        return "{0: <15}  {1: <4}  {2: <2} {3: <9}  {4: <10}  {5: <10} {6: <4} {7: <3}\n".format(
             self.time, self.mag, self.alt, self.az, self.sat, self.center_dist,
             self.center_mag, self.sun_alt)
